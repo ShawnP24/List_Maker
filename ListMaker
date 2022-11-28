@@ -1,0 +1,79 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+public class ListMaker {
+    static ArrayList<String> myArrList = new ArrayList<>();
+    public static void main(String[]args)
+    {
+        Scanner console = new Scanner(System.in);
+
+        final String menu = "A- add, D- Delte an item from the list, P- Print (i.e. display) the list, Q- Quit the program";
+        boolean done = false;
+        String cmd="";
+        do {
+            displayList();
+            cmd = SafeInput.getRegExString(console, menu, "[AaDdPpQq]");
+            cmd = cmd.toUpperCase();
+
+            switch (cmd)
+            {
+                case "A":
+                    Add();
+                    break;
+                case "D":
+                    Add();
+                    break;
+                case "P":
+                    Add();
+                    break;
+                case "Q":
+                    Quit();
+                    break;
+
+            }
+            System.out.println("cmd is " + cmd);
+        }
+        while(!done);
+        }
+    private static void Quit() {
+        Scanner sc = new Scanner(System.in);
+        String message = "Are you sure?";
+        boolean quit = SafeInput.getYNConfirm(sc,message);
+        if(quit) {
+            System.exit(1);
+        }
+        return;
+    }
+    private static void Delete() {
+        Scanner sc = new Scanner(System.in);
+        String message = "Enter item number to remove";
+        if(myArrList.isEmpty()) {
+            System.out.println("List is Empty");
+            return;
+        }
+        int index = SafeInput.getRangedInt(sc, message,1, myArrList.size());
+        myArrList.remove(index-1);
+    }
+    private static void Add() {
+        Scanner sc = new Scanner(System.in);
+        String item = SafeInput.getNonZeroLenString(sc, "Enter item to add");
+        myArrList.add(item);
+
+    }
+    private static void displayList()
+    {
+        System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++");
+        if(myArrList.size()!=0)
+        {
+
+
+            for(int i =0; i < myArrList.size(); i++)
+            {
+                System.out.printf("%3d%35s", i+1, myArrList.get(i) );
+                System.out.println();
+            }
+        }
+        else
+            System.out.println("+++ List is empty +++");
+        System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++");
+    }
+}
